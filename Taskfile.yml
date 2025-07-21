@@ -1,0 +1,13 @@
+version: '3'
+
+tasks:
+  gen:
+    vars:
+      FILE: user
+    cmds:
+      - rm -rf ./pkg/api/{{.FILE}}
+      - mkdir -p ./pkg/api/{{.FILE}}
+      - protoc --go_out=./pkg/api/{{.FILE}} --go_opt=paths=source_relative --go-grpc_out=./pkg/api/{{.FILE}} --go-grpc_opt=paths=source_relative ./proto/{{.FILE}}/*proto
+      - mv ./pkg/api/{{.FILE}}/proto/{{.FILE}}/{{.FILE}}_grpc.pb.go ./pkg/api/{{.FILE}}/{{.FILE}}_grpc.pb.go
+      - mv ./pkg/api/{{.FILE}}/proto/{{.FILE}}/{{.FILE}}.pb.go ./pkg/api/{{.FILE}}/{{.FILE}}.pb.go
+      - rm -rf ./pkg/api/{{.FILE}}/proto

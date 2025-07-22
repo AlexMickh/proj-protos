@@ -36,7 +36,8 @@ message GetUserByEmailResponse {
     string password = 4;
     optional string about = 5;
     repeated string skills = 6;
-    string avatar_url = 7; 
+    string avatar_url = 7;
+    bool is_email_verified = 8;
 }
 
 message VerifyEmailRequest {

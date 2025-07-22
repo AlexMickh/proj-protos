@@ -195,16 +195,17 @@ func (x *GetUserByEmailRequest) GetEmail() string {
 }
 
 type GetUserByEmailResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
-	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Password      string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
-	About         *string                `protobuf:"bytes,5,opt,name=about,proto3,oneof" json:"about,omitempty"`
-	Skills        []string               `protobuf:"bytes,6,rep,name=skills,proto3" json:"skills,omitempty"`
-	AvatarUrl     string                 `protobuf:"bytes,7,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Id              string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Email           string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Name            string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Password        string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
+	About           *string                `protobuf:"bytes,5,opt,name=about,proto3,oneof" json:"about,omitempty"`
+	Skills          []string               `protobuf:"bytes,6,rep,name=skills,proto3" json:"skills,omitempty"`
+	AvatarUrl       string                 `protobuf:"bytes,7,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	IsEmailVerified bool                   `protobuf:"varint,8,opt,name=is_email_verified,json=isEmailVerified,proto3" json:"is_email_verified,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *GetUserByEmailResponse) Reset() {
@@ -286,6 +287,13 @@ func (x *GetUserByEmailResponse) GetAvatarUrl() string {
 	return ""
 }
 
+func (x *GetUserByEmailResponse) GetIsEmailVerified() bool {
+	if x != nil {
+		return x.IsEmailVerified
+	}
+	return false
+}
+
 type VerifyEmailRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
@@ -347,7 +355,7 @@ const file_proto_user_user_proto_rawDesc = "" +
 	"\x12CreateUserResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"-\n" +
 	"\x15GetUserByEmailRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\"\xca\x01\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"\xf6\x01\n" +
 	"\x16GetUserByEmailResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x12\n" +
@@ -356,7 +364,8 @@ const file_proto_user_user_proto_rawDesc = "" +
 	"\x05about\x18\x05 \x01(\tH\x00R\x05about\x88\x01\x01\x12\x16\n" +
 	"\x06skills\x18\x06 \x03(\tR\x06skills\x12\x1d\n" +
 	"\n" +
-	"avatar_url\x18\a \x01(\tR\tavatarUrlB\b\n" +
+	"avatar_url\x18\a \x01(\tR\tavatarUrl\x12*\n" +
+	"\x11is_email_verified\x18\b \x01(\bR\x0fisEmailVerifiedB\b\n" +
 	"\x06_about\"*\n" +
 	"\x12VerifyEmailRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email2\xd5\x01\n" +

@@ -37,7 +37,6 @@ message LoginResponse {
 }
 
 message RefreshRequest {
-    string access_token = 1;
     string refresh_token = 2;
 }
 

@@ -41,5 +41,5 @@ message GetUserByEmailResponse {
 }
 
 message VerifyEmailRequest {
-    string email = 1;
+    string id = 1;
 }

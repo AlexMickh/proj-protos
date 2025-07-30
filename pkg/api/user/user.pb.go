@@ -296,7 +296,7 @@ func (x *GetUserByEmailResponse) GetIsEmailVerified() bool {
 
 type VerifyEmailRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -331,9 +331,9 @@ func (*VerifyEmailRequest) Descriptor() ([]byte, []int) {
 	return file_proto_user_user_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *VerifyEmailRequest) GetEmail() string {
+func (x *VerifyEmailRequest) GetId() string {
 	if x != nil {
-		return x.Email
+		return x.Id
 	}
 	return ""
 }
@@ -366,9 +366,9 @@ const file_proto_user_user_proto_rawDesc = "" +
 	"\n" +
 	"avatar_url\x18\a \x01(\tR\tavatarUrl\x12*\n" +
 	"\x11is_email_verified\x18\b \x01(\bR\x0fisEmailVerifiedB\b\n" +
-	"\x06_about\"*\n" +
-	"\x12VerifyEmailRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email2\xd5\x01\n" +
+	"\x06_about\"$\n" +
+	"\x12VerifyEmailRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id2\xd5\x01\n" +
 	"\x04User\x12?\n" +
 	"\n" +
 	"CreateUser\x12\x17.user.CreateUserRequest\x1a\x18.user.CreateUserResponse\x12K\n" +

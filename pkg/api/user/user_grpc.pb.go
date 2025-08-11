@@ -20,9 +20,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	User_CreateUser_FullMethodName     = "/user.User/CreateUser"
-	User_GetUserByEmail_FullMethodName = "/user.User/GetUserByEmail"
-	User_VerifyEmail_FullMethodName    = "/user.User/VerifyEmail"
+	User_CreateUser_FullMethodName       = "/user.User/CreateUser"
+	User_GetUserByEmail_FullMethodName   = "/user.User/GetUserByEmail"
+	User_VerifyEmail_FullMethodName      = "/user.User/VerifyEmail"
+	User_GetUserById_FullMethodName      = "/user.User/GetUserById"
+	User_GetUsersBySkills_FullMethodName = "/user.User/GetUsersBySkills"
 )
 
 // UserClient is the client API for User service.
@@ -32,6 +34,8 @@ type UserClient interface {
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	GetUserByEmail(ctx context.Context, in *GetUserByEmailRequest, opts ...grpc.CallOption) (*GetUserByEmailResponse, error)
 	VerifyEmail(ctx context.Context, in *VerifyEmailRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetUserById(ctx context.Context, in *GetUserByIdRequest, opts ...grpc.CallOption) (*GetUserByIdResponse, error)
+	GetUsersBySkills(ctx context.Context, in *GetUsersBySkillsRequest, opts ...grpc.CallOption) (*GetUsersBySkillsResponse, error)
 }
 
 type userClient struct {
@@ -72,6 +76,26 @@ func (c *userClient) VerifyEmail(ctx context.Context, in *VerifyEmailRequest, op
 	return out, nil
 }
 
+func (c *userClient) GetUserById(ctx context.Context, in *GetUserByIdRequest, opts ...grpc.CallOption) (*GetUserByIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUserByIdResponse)
+	err := c.cc.Invoke(ctx, User_GetUserById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) GetUsersBySkills(ctx context.Context, in *GetUsersBySkillsRequest, opts ...grpc.CallOption) (*GetUsersBySkillsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUsersBySkillsResponse)
+	err := c.cc.Invoke(ctx, User_GetUsersBySkills_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility.
@@ -79,6 +103,8 @@ type UserServer interface {
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	GetUserByEmail(context.Context, *GetUserByEmailRequest) (*GetUserByEmailResponse, error)
 	VerifyEmail(context.Context, *VerifyEmailRequest) (*emptypb.Empty, error)
+	GetUserById(context.Context, *GetUserByIdRequest) (*GetUserByIdResponse, error)
+	GetUsersBySkills(context.Context, *GetUsersBySkillsRequest) (*GetUsersBySkillsResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -97,6 +123,12 @@ func (UnimplementedUserServer) GetUserByEmail(context.Context, *GetUserByEmailRe
 }
 func (UnimplementedUserServer) VerifyEmail(context.Context, *VerifyEmailRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyEmail not implemented")
+}
+func (UnimplementedUserServer) GetUserById(context.Context, *GetUserByIdRequest) (*GetUserByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserById not implemented")
+}
+func (UnimplementedUserServer) GetUsersBySkills(context.Context, *GetUsersBySkillsRequest) (*GetUsersBySkillsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUsersBySkills not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 func (UnimplementedUserServer) testEmbeddedByValue()              {}
@@ -173,6 +205,42 @@ func _User_VerifyEmail_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_GetUserById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).GetUserById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_GetUserById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).GetUserById(ctx, req.(*GetUserByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_GetUsersBySkills_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUsersBySkillsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).GetUsersBySkills(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_GetUsersBySkills_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).GetUsersBySkills(ctx, req.(*GetUsersBySkillsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -191,6 +259,14 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "VerifyEmail",
 			Handler:    _User_VerifyEmail_Handler,
+		},
+		{
+			MethodName: "GetUserById",
+			Handler:    _User_GetUserById_Handler,
+		},
+		{
+			MethodName: "GetUsersBySkills",
+			Handler:    _User_GetUsersBySkills_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

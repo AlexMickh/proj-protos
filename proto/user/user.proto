@@ -10,6 +10,19 @@ service User {
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
     rpc GetUserByEmail(GetUserByEmailRequest) returns (GetUserByEmailResponse);
     rpc VerifyEmail(VerifyEmailRequest) returns (google.protobuf.Empty);
+    rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
+    rpc GetUsersBySkills(GetUsersBySkillsRequest) returns (GetUsersBySkillsResponse);
+}
+
+message UserType {
+    string id = 1;
+    string email = 2;
+    string name = 3;
+    string password = 4;
+    optional string about = 5;
+    repeated string skills = 6;
+    string avatar_url = 7;
+    bool is_email_verified = 8;
 }
 
 message CreateUserRequest {
@@ -30,16 +43,25 @@ message GetUserByEmailRequest {
 }
 
 message GetUserByEmailResponse {
-    string id = 1;
-    string email = 2;
-    string name = 3;
-    string password = 4;
-    optional string about = 5;
-    repeated string skills = 6;
-    string avatar_url = 7;
-    bool is_email_verified = 8;
+    UserType user = 1;
 }
 
 message VerifyEmailRequest {
     string id = 1;
+}
+
+message GetUserByIdRequest {
+    string id = 1;
+}
+
+message GetUserByIdResponse {
+    UserType user = 1;
+}
+
+message GetUsersBySkillsRequest {
+    repeated string skills = 1;
+}
+
+message GetUsersBySkillsResponse {
+    repeated UserType user = 1;
 }

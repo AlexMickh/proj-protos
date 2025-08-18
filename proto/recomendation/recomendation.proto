@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "/recomendation";
+
+package recomendation;
+
+service Recomendation {
+    rpc BySkills(BySkillsRequest) returns (BySkillsResponse);
+}
+
+message UserType {
+    string id = 1;
+    string email = 2;
+    string name = 3;
+    string password = 4;
+    optional string about = 5;
+    repeated string skills = 6;
+    string avatar_url = 7;
+    bool is_email_verified = 8;
+}
+
+message BySkillsRequest {
+    repeated string skills = 1;
+}
+
+message BySkillsResponse {
+    repeated UserType users = 1;
+}

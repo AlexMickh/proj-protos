@@ -9,9 +9,10 @@ package auth;
 service Auth {
     rpc Register(RegisterRequest) returns (RegisterResponse);
     rpc Login(LoginRequest) returns (LoginResponse);
-    rpc Refresh(RefreshRequest) returns (RefreshResponse);
     rpc Verify(VerifyRequest) returns (VerifyResponse);
     rpc VerifyEmail(VerifyEmailRequest) returns (google.protobuf.Empty);
+    rpc GetCurrentSession(GetCurrentSessionRequest) returns (GetCurrentSessionResponse);
+    rpc GetAllUserSessions(GetAllUserSessionsRequest) returns (GetAllUserSessionsResponse);
 }
 
 message RegisterRequest {
@@ -33,21 +34,11 @@ message LoginRequest {
 }
 
 message LoginResponse {
-    string access_token = 1;
-    string refresh_token = 2;
-}
-
-message RefreshRequest {
-    string refresh_token = 2;
-}
-
-message RefreshResponse {
-    string access_token = 1;
-    string refresh_token = 2;
+    string session_id = 1;
 }
 
 message VerifyRequest {
-    string access_token = 1;
+    string session_id = 1;
 }
 
 message VerifyResponse {
@@ -56,4 +47,26 @@ message VerifyResponse {
 
 message VerifyEmailRequest {
     string token = 1;
+}
+
+message SessionType {
+    string session_id = 1;
+    string user_id = 2;
+    string user_agent = 3;
+}
+
+message GetCurrentSessionRequest {
+    string session_id = 1;
+}
+
+message GetCurrentSessionResponse {
+    SessionType session = 1;
+}
+
+message GetAllUserSessionsRequest {
+    string user_id = 1;
+}
+
+message GetAllUserSessionsResponse {
+    repeated SessionType sessions = 1;
 }

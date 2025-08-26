@@ -558,6 +558,110 @@ func (x *GetUsersBySkillsResponse) GetUser() []*UserType {
 	return nil
 }
 
+type CreateUserWithProviderRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Provider      string                 `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Login         string                 `protobuf:"bytes,3,opt,name=login,proto3" json:"login,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateUserWithProviderRequest) Reset() {
+	*x = CreateUserWithProviderRequest{}
+	mi := &file_proto_user_user_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateUserWithProviderRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateUserWithProviderRequest) ProtoMessage() {}
+
+func (x *CreateUserWithProviderRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_user_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateUserWithProviderRequest.ProtoReflect.Descriptor instead.
+func (*CreateUserWithProviderRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_user_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *CreateUserWithProviderRequest) GetProvider() string {
+	if x != nil {
+		return x.Provider
+	}
+	return ""
+}
+
+func (x *CreateUserWithProviderRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *CreateUserWithProviderRequest) GetLogin() string {
+	if x != nil {
+		return x.Login
+	}
+	return ""
+}
+
+type CreateUserWithProviderResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateUserWithProviderResponse) Reset() {
+	*x = CreateUserWithProviderResponse{}
+	mi := &file_proto_user_user_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateUserWithProviderResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateUserWithProviderResponse) ProtoMessage() {}
+
+func (x *CreateUserWithProviderResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_user_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateUserWithProviderResponse.ProtoReflect.Descriptor instead.
+func (*CreateUserWithProviderResponse) Descriptor() ([]byte, []int) {
+	return file_proto_user_user_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *CreateUserWithProviderResponse) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
 var File_proto_user_user_proto protoreflect.FileDescriptor
 
 const file_proto_user_user_proto_rawDesc = "" +
@@ -598,14 +702,21 @@ const file_proto_user_user_proto_rawDesc = "" +
 	"\x17GetUsersBySkillsRequest\x12\x16\n" +
 	"\x06skills\x18\x01 \x03(\tR\x06skills\">\n" +
 	"\x18GetUsersBySkillsResponse\x12\"\n" +
-	"\x04user\x18\x01 \x03(\v2\x0e.user.UserTypeR\x04user2\xec\x02\n" +
+	"\x04user\x18\x01 \x03(\v2\x0e.user.UserTypeR\x04user\"g\n" +
+	"\x1dCreateUserWithProviderRequest\x12\x1a\n" +
+	"\bprovider\x18\x01 \x01(\tR\bprovider\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12\x14\n" +
+	"\x05login\x18\x03 \x01(\tR\x05login\"0\n" +
+	"\x1eCreateUserWithProviderResponse\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id2\xd1\x03\n" +
 	"\x04User\x12?\n" +
 	"\n" +
 	"CreateUser\x12\x17.user.CreateUserRequest\x1a\x18.user.CreateUserResponse\x12K\n" +
 	"\x0eGetUserByEmail\x12\x1b.user.GetUserByEmailRequest\x1a\x1c.user.GetUserByEmailResponse\x12?\n" +
 	"\vVerifyEmail\x12\x18.user.VerifyEmailRequest\x1a\x16.google.protobuf.Empty\x12B\n" +
 	"\vGetUserById\x12\x18.user.GetUserByIdRequest\x1a\x19.user.GetUserByIdResponse\x12Q\n" +
-	"\x10GetUsersBySkills\x12\x1d.user.GetUsersBySkillsRequest\x1a\x1e.user.GetUsersBySkillsResponseB\aZ\x05/userb\x06proto3"
+	"\x10GetUsersBySkills\x12\x1d.user.GetUsersBySkillsRequest\x1a\x1e.user.GetUsersBySkillsResponse\x12c\n" +
+	"\x16CreateUserWithProvider\x12#.user.CreateUserWithProviderRequest\x1a$.user.CreateUserWithProviderResponseB\aZ\x05/userb\x06proto3"
 
 var (
 	file_proto_user_user_proto_rawDescOnce sync.Once
@@ -619,19 +730,21 @@ func file_proto_user_user_proto_rawDescGZIP() []byte {
 	return file_proto_user_user_proto_rawDescData
 }
 
-var file_proto_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_proto_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_proto_user_user_proto_goTypes = []any{
-	(*UserType)(nil),                 // 0: user.UserType
-	(*CreateUserRequest)(nil),        // 1: user.CreateUserRequest
-	(*CreateUserResponse)(nil),       // 2: user.CreateUserResponse
-	(*GetUserByEmailRequest)(nil),    // 3: user.GetUserByEmailRequest
-	(*GetUserByEmailResponse)(nil),   // 4: user.GetUserByEmailResponse
-	(*VerifyEmailRequest)(nil),       // 5: user.VerifyEmailRequest
-	(*GetUserByIdRequest)(nil),       // 6: user.GetUserByIdRequest
-	(*GetUserByIdResponse)(nil),      // 7: user.GetUserByIdResponse
-	(*GetUsersBySkillsRequest)(nil),  // 8: user.GetUsersBySkillsRequest
-	(*GetUsersBySkillsResponse)(nil), // 9: user.GetUsersBySkillsResponse
-	(*emptypb.Empty)(nil),            // 10: google.protobuf.Empty
+	(*UserType)(nil),                       // 0: user.UserType
+	(*CreateUserRequest)(nil),              // 1: user.CreateUserRequest
+	(*CreateUserResponse)(nil),             // 2: user.CreateUserResponse
+	(*GetUserByEmailRequest)(nil),          // 3: user.GetUserByEmailRequest
+	(*GetUserByEmailResponse)(nil),         // 4: user.GetUserByEmailResponse
+	(*VerifyEmailRequest)(nil),             // 5: user.VerifyEmailRequest
+	(*GetUserByIdRequest)(nil),             // 6: user.GetUserByIdRequest
+	(*GetUserByIdResponse)(nil),            // 7: user.GetUserByIdResponse
+	(*GetUsersBySkillsRequest)(nil),        // 8: user.GetUsersBySkillsRequest
+	(*GetUsersBySkillsResponse)(nil),       // 9: user.GetUsersBySkillsResponse
+	(*CreateUserWithProviderRequest)(nil),  // 10: user.CreateUserWithProviderRequest
+	(*CreateUserWithProviderResponse)(nil), // 11: user.CreateUserWithProviderResponse
+	(*emptypb.Empty)(nil),                  // 12: google.protobuf.Empty
 }
 var file_proto_user_user_proto_depIdxs = []int32{
 	0,  // 0: user.GetUserByEmailResponse.user:type_name -> user.UserType
@@ -642,13 +755,15 @@ var file_proto_user_user_proto_depIdxs = []int32{
 	5,  // 5: user.User.VerifyEmail:input_type -> user.VerifyEmailRequest
 	6,  // 6: user.User.GetUserById:input_type -> user.GetUserByIdRequest
 	8,  // 7: user.User.GetUsersBySkills:input_type -> user.GetUsersBySkillsRequest
-	2,  // 8: user.User.CreateUser:output_type -> user.CreateUserResponse
-	4,  // 9: user.User.GetUserByEmail:output_type -> user.GetUserByEmailResponse
-	10, // 10: user.User.VerifyEmail:output_type -> google.protobuf.Empty
-	7,  // 11: user.User.GetUserById:output_type -> user.GetUserByIdResponse
-	9,  // 12: user.User.GetUsersBySkills:output_type -> user.GetUsersBySkillsResponse
-	8,  // [8:13] is the sub-list for method output_type
-	3,  // [3:8] is the sub-list for method input_type
+	10, // 8: user.User.CreateUserWithProvider:input_type -> user.CreateUserWithProviderRequest
+	2,  // 9: user.User.CreateUser:output_type -> user.CreateUserResponse
+	4,  // 10: user.User.GetUserByEmail:output_type -> user.GetUserByEmailResponse
+	12, // 11: user.User.VerifyEmail:output_type -> google.protobuf.Empty
+	7,  // 12: user.User.GetUserById:output_type -> user.GetUserByIdResponse
+	9,  // 13: user.User.GetUsersBySkills:output_type -> user.GetUsersBySkillsResponse
+	11, // 14: user.User.CreateUserWithProvider:output_type -> user.CreateUserWithProviderResponse
+	9,  // [9:15] is the sub-list for method output_type
+	3,  // [3:9] is the sub-list for method input_type
 	3,  // [3:3] is the sub-list for extension type_name
 	3,  // [3:3] is the sub-list for extension extendee
 	0,  // [0:3] is the sub-list for field type_name
@@ -667,7 +782,7 @@ func file_proto_user_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_user_user_proto_rawDesc), len(file_proto_user_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

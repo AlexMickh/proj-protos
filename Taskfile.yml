@@ -3,7 +3,7 @@ version: '3'
 tasks:
   gen:
     vars:
-      FILE: auth
+      FILE: user
     cmds:
       - rm -rf ./pkg/api/{{.FILE}}
       - mkdir -p ./pkg/api/{{.FILE}}

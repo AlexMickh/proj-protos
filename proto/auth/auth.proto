@@ -13,6 +13,8 @@ service Auth {
     rpc VerifyEmail(VerifyEmailRequest) returns (google.protobuf.Empty);
     rpc GetCurrentSession(GetCurrentSessionRequest) returns (GetCurrentSessionResponse);
     rpc GetAllUserSessions(GetAllUserSessionsRequest) returns (GetAllUserSessionsResponse);
+    rpc OauthLogin(OauthLoginRequest) returns (OauthLoginResponse);
+    rpc OauthCallback(OauthCallbackRequest) returns (OauthCallbackResponse);
 }
 
 message RegisterRequest {
@@ -69,4 +71,25 @@ message GetAllUserSessionsRequest {
 
 message GetAllUserSessionsResponse {
     repeated SessionType sessions = 1;
+}
+
+enum OauthProviders {
+    YANDEX = 0;
+}
+
+message OauthLoginRequest {
+    OauthProviders provider = 1;
+}
+
+message OauthLoginResponse {
+    string url = 1;
+}
+
+message OauthCallbackRequest {
+    OauthProviders provider = 1;
+    string code = 2;
+}
+
+message OauthCallbackResponse {
+    string session_id = 1;
 }

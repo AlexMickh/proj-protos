@@ -12,6 +12,7 @@ service User {
     rpc VerifyEmail(VerifyEmailRequest) returns (google.protobuf.Empty);
     rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
     rpc GetUsersBySkills(GetUsersBySkillsRequest) returns (GetUsersBySkillsResponse);
+    rpc CreateUserWithProvider(CreateUserWithProviderRequest) returns (CreateUserWithProviderResponse);
 }
 
 message UserType {
@@ -64,4 +65,14 @@ message GetUsersBySkillsRequest {
 
 message GetUsersBySkillsResponse {
     repeated UserType user = 1;
+}
+
+message CreateUserWithProviderRequest {
+    string provider = 1;
+    string email = 2;
+    string login = 3;
+}
+
+message CreateUserWithProviderResponse {
+    string id = 1;
 }

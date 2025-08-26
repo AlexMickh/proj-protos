@@ -26,6 +26,8 @@ const (
 	Auth_VerifyEmail_FullMethodName        = "/auth.Auth/VerifyEmail"
 	Auth_GetCurrentSession_FullMethodName  = "/auth.Auth/GetCurrentSession"
 	Auth_GetAllUserSessions_FullMethodName = "/auth.Auth/GetAllUserSessions"
+	Auth_OauthLogin_FullMethodName         = "/auth.Auth/OauthLogin"
+	Auth_OauthCallback_FullMethodName      = "/auth.Auth/OauthCallback"
 )
 
 // AuthClient is the client API for Auth service.
@@ -38,6 +40,8 @@ type AuthClient interface {
 	VerifyEmail(ctx context.Context, in *VerifyEmailRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetCurrentSession(ctx context.Context, in *GetCurrentSessionRequest, opts ...grpc.CallOption) (*GetCurrentSessionResponse, error)
 	GetAllUserSessions(ctx context.Context, in *GetAllUserSessionsRequest, opts ...grpc.CallOption) (*GetAllUserSessionsResponse, error)
+	OauthLogin(ctx context.Context, in *OauthLoginRequest, opts ...grpc.CallOption) (*OauthLoginResponse, error)
+	OauthCallback(ctx context.Context, in *OauthCallbackRequest, opts ...grpc.CallOption) (*OauthCallbackResponse, error)
 }
 
 type authClient struct {
@@ -108,6 +112,26 @@ func (c *authClient) GetAllUserSessions(ctx context.Context, in *GetAllUserSessi
 	return out, nil
 }
 
+func (c *authClient) OauthLogin(ctx context.Context, in *OauthLoginRequest, opts ...grpc.CallOption) (*OauthLoginResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(OauthLoginResponse)
+	err := c.cc.Invoke(ctx, Auth_OauthLogin_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) OauthCallback(ctx context.Context, in *OauthCallbackRequest, opts ...grpc.CallOption) (*OauthCallbackResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(OauthCallbackResponse)
+	err := c.cc.Invoke(ctx, Auth_OauthCallback_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility.
@@ -118,6 +142,8 @@ type AuthServer interface {
 	VerifyEmail(context.Context, *VerifyEmailRequest) (*emptypb.Empty, error)
 	GetCurrentSession(context.Context, *GetCurrentSessionRequest) (*GetCurrentSessionResponse, error)
 	GetAllUserSessions(context.Context, *GetAllUserSessionsRequest) (*GetAllUserSessionsResponse, error)
+	OauthLogin(context.Context, *OauthLoginRequest) (*OauthLoginResponse, error)
+	OauthCallback(context.Context, *OauthCallbackRequest) (*OauthCallbackResponse, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -145,6 +171,12 @@ func (UnimplementedAuthServer) GetCurrentSession(context.Context, *GetCurrentSes
 }
 func (UnimplementedAuthServer) GetAllUserSessions(context.Context, *GetAllUserSessionsRequest) (*GetAllUserSessionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllUserSessions not implemented")
+}
+func (UnimplementedAuthServer) OauthLogin(context.Context, *OauthLoginRequest) (*OauthLoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OauthLogin not implemented")
+}
+func (UnimplementedAuthServer) OauthCallback(context.Context, *OauthCallbackRequest) (*OauthCallbackResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OauthCallback not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 func (UnimplementedAuthServer) testEmbeddedByValue()              {}
@@ -275,6 +307,42 @@ func _Auth_GetAllUserSessions_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_OauthLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OauthLoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).OauthLogin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_OauthLogin_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).OauthLogin(ctx, req.(*OauthLoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_OauthCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OauthCallbackRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).OauthCallback(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_OauthCallback_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).OauthCallback(ctx, req.(*OauthCallbackRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -305,6 +373,14 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAllUserSessions",
 			Handler:    _Auth_GetAllUserSessions_Handler,
+		},
+		{
+			MethodName: "OauthLogin",
+			Handler:    _Auth_OauthLogin_Handler,
+		},
+		{
+			MethodName: "OauthCallback",
+			Handler:    _Auth_OauthCallback_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

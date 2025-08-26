@@ -20,11 +20,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	User_CreateUser_FullMethodName       = "/user.User/CreateUser"
-	User_GetUserByEmail_FullMethodName   = "/user.User/GetUserByEmail"
-	User_VerifyEmail_FullMethodName      = "/user.User/VerifyEmail"
-	User_GetUserById_FullMethodName      = "/user.User/GetUserById"
-	User_GetUsersBySkills_FullMethodName = "/user.User/GetUsersBySkills"
+	User_CreateUser_FullMethodName             = "/user.User/CreateUser"
+	User_GetUserByEmail_FullMethodName         = "/user.User/GetUserByEmail"
+	User_VerifyEmail_FullMethodName            = "/user.User/VerifyEmail"
+	User_GetUserById_FullMethodName            = "/user.User/GetUserById"
+	User_GetUsersBySkills_FullMethodName       = "/user.User/GetUsersBySkills"
+	User_CreateUserWithProvider_FullMethodName = "/user.User/CreateUserWithProvider"
 )
 
 // UserClient is the client API for User service.
@@ -36,6 +37,7 @@ type UserClient interface {
 	VerifyEmail(ctx context.Context, in *VerifyEmailRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetUserById(ctx context.Context, in *GetUserByIdRequest, opts ...grpc.CallOption) (*GetUserByIdResponse, error)
 	GetUsersBySkills(ctx context.Context, in *GetUsersBySkillsRequest, opts ...grpc.CallOption) (*GetUsersBySkillsResponse, error)
+	CreateUserWithProvider(ctx context.Context, in *CreateUserWithProviderRequest, opts ...grpc.CallOption) (*CreateUserWithProviderResponse, error)
 }
 
 type userClient struct {
@@ -96,6 +98,16 @@ func (c *userClient) GetUsersBySkills(ctx context.Context, in *GetUsersBySkillsR
 	return out, nil
 }
 
+func (c *userClient) CreateUserWithProvider(ctx context.Context, in *CreateUserWithProviderRequest, opts ...grpc.CallOption) (*CreateUserWithProviderResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateUserWithProviderResponse)
+	err := c.cc.Invoke(ctx, User_CreateUserWithProvider_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility.
@@ -105,6 +117,7 @@ type UserServer interface {
 	VerifyEmail(context.Context, *VerifyEmailRequest) (*emptypb.Empty, error)
 	GetUserById(context.Context, *GetUserByIdRequest) (*GetUserByIdResponse, error)
 	GetUsersBySkills(context.Context, *GetUsersBySkillsRequest) (*GetUsersBySkillsResponse, error)
+	CreateUserWithProvider(context.Context, *CreateUserWithProviderRequest) (*CreateUserWithProviderResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -129,6 +142,9 @@ func (UnimplementedUserServer) GetUserById(context.Context, *GetUserByIdRequest)
 }
 func (UnimplementedUserServer) GetUsersBySkills(context.Context, *GetUsersBySkillsRequest) (*GetUsersBySkillsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUsersBySkills not implemented")
+}
+func (UnimplementedUserServer) CreateUserWithProvider(context.Context, *CreateUserWithProviderRequest) (*CreateUserWithProviderResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateUserWithProvider not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 func (UnimplementedUserServer) testEmbeddedByValue()              {}
@@ -241,6 +257,24 @@ func _User_GetUsersBySkills_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_CreateUserWithProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateUserWithProviderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).CreateUserWithProvider(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_CreateUserWithProvider_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).CreateUserWithProvider(ctx, req.(*CreateUserWithProviderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -267,6 +301,10 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUsersBySkills",
 			Handler:    _User_GetUsersBySkills_Handler,
+		},
+		{
+			MethodName: "CreateUserWithProvider",
+			Handler:    _User_CreateUserWithProvider_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

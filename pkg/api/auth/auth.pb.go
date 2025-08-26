@@ -22,6 +22,49 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type OauthProviders int32
+
+const (
+	OauthProviders_YANDEX OauthProviders = 0
+)
+
+// Enum value maps for OauthProviders.
+var (
+	OauthProviders_name = map[int32]string{
+		0: "YANDEX",
+	}
+	OauthProviders_value = map[string]int32{
+		"YANDEX": 0,
+	}
+)
+
+func (x OauthProviders) Enum() *OauthProviders {
+	p := new(OauthProviders)
+	*p = x
+	return p
+}
+
+func (x OauthProviders) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (OauthProviders) Descriptor() protoreflect.EnumDescriptor {
+	return file_proto_auth_auth_proto_enumTypes[0].Descriptor()
+}
+
+func (OauthProviders) Type() protoreflect.EnumType {
+	return &file_proto_auth_auth_proto_enumTypes[0]
+}
+
+func (x OauthProviders) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use OauthProviders.Descriptor instead.
+func (OauthProviders) EnumDescriptor() ([]byte, []int) {
+	return file_proto_auth_auth_proto_rawDescGZIP(), []int{0}
+}
+
 type RegisterRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
@@ -614,6 +657,190 @@ func (x *GetAllUserSessionsResponse) GetSessions() []*SessionType {
 	return nil
 }
 
+type OauthLoginRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Provider      OauthProviders         `protobuf:"varint,1,opt,name=provider,proto3,enum=auth.OauthProviders" json:"provider,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OauthLoginRequest) Reset() {
+	*x = OauthLoginRequest{}
+	mi := &file_proto_auth_auth_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OauthLoginRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OauthLoginRequest) ProtoMessage() {}
+
+func (x *OauthLoginRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_auth_auth_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OauthLoginRequest.ProtoReflect.Descriptor instead.
+func (*OauthLoginRequest) Descriptor() ([]byte, []int) {
+	return file_proto_auth_auth_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *OauthLoginRequest) GetProvider() OauthProviders {
+	if x != nil {
+		return x.Provider
+	}
+	return OauthProviders_YANDEX
+}
+
+type OauthLoginResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Url           string                 `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OauthLoginResponse) Reset() {
+	*x = OauthLoginResponse{}
+	mi := &file_proto_auth_auth_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OauthLoginResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OauthLoginResponse) ProtoMessage() {}
+
+func (x *OauthLoginResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_auth_auth_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OauthLoginResponse.ProtoReflect.Descriptor instead.
+func (*OauthLoginResponse) Descriptor() ([]byte, []int) {
+	return file_proto_auth_auth_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *OauthLoginResponse) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
+type OauthCallbackRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Provider      OauthProviders         `protobuf:"varint,1,opt,name=provider,proto3,enum=auth.OauthProviders" json:"provider,omitempty"`
+	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OauthCallbackRequest) Reset() {
+	*x = OauthCallbackRequest{}
+	mi := &file_proto_auth_auth_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OauthCallbackRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OauthCallbackRequest) ProtoMessage() {}
+
+func (x *OauthCallbackRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_auth_auth_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OauthCallbackRequest.ProtoReflect.Descriptor instead.
+func (*OauthCallbackRequest) Descriptor() ([]byte, []int) {
+	return file_proto_auth_auth_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *OauthCallbackRequest) GetProvider() OauthProviders {
+	if x != nil {
+		return x.Provider
+	}
+	return OauthProviders_YANDEX
+}
+
+func (x *OauthCallbackRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+type OauthCallbackResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SessionId     string                 `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OauthCallbackResponse) Reset() {
+	*x = OauthCallbackResponse{}
+	mi := &file_proto_auth_auth_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OauthCallbackResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OauthCallbackResponse) ProtoMessage() {}
+
+func (x *OauthCallbackResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_auth_auth_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OauthCallbackResponse.ProtoReflect.Descriptor instead.
+func (*OauthCallbackResponse) Descriptor() ([]byte, []int) {
+	return file_proto_auth_auth_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *OauthCallbackResponse) GetSessionId() string {
+	if x != nil {
+		return x.SessionId
+	}
+	return ""
+}
+
 var File_proto_auth_auth_proto protoreflect.FileDescriptor
 
 const file_proto_auth_auth_proto_rawDesc = "" +
@@ -657,14 +884,30 @@ const file_proto_auth_auth_proto_rawDesc = "" +
 	"\x19GetAllUserSessionsRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\"K\n" +
 	"\x1aGetAllUserSessionsResponse\x12-\n" +
-	"\bsessions\x18\x01 \x03(\v2\x11.auth.SessionTypeR\bsessions2\x98\x03\n" +
+	"\bsessions\x18\x01 \x03(\v2\x11.auth.SessionTypeR\bsessions\"E\n" +
+	"\x11OauthLoginRequest\x120\n" +
+	"\bprovider\x18\x01 \x01(\x0e2\x14.auth.OauthProvidersR\bprovider\"&\n" +
+	"\x12OauthLoginResponse\x12\x10\n" +
+	"\x03url\x18\x01 \x01(\tR\x03url\"\\\n" +
+	"\x14OauthCallbackRequest\x120\n" +
+	"\bprovider\x18\x01 \x01(\x0e2\x14.auth.OauthProvidersR\bprovider\x12\x12\n" +
+	"\x04code\x18\x02 \x01(\tR\x04code\"6\n" +
+	"\x15OauthCallbackResponse\x12\x1d\n" +
+	"\n" +
+	"session_id\x18\x01 \x01(\tR\tsessionId*\x1c\n" +
+	"\x0eOauthProviders\x12\n" +
+	"\n" +
+	"\x06YANDEX\x10\x002\xa3\x04\n" +
 	"\x04Auth\x129\n" +
 	"\bRegister\x12\x15.auth.RegisterRequest\x1a\x16.auth.RegisterResponse\x120\n" +
 	"\x05Login\x12\x12.auth.LoginRequest\x1a\x13.auth.LoginResponse\x123\n" +
 	"\x06Verify\x12\x13.auth.VerifyRequest\x1a\x14.auth.VerifyResponse\x12?\n" +
 	"\vVerifyEmail\x12\x18.auth.VerifyEmailRequest\x1a\x16.google.protobuf.Empty\x12T\n" +
 	"\x11GetCurrentSession\x12\x1e.auth.GetCurrentSessionRequest\x1a\x1f.auth.GetCurrentSessionResponse\x12W\n" +
-	"\x12GetAllUserSessions\x12\x1f.auth.GetAllUserSessionsRequest\x1a .auth.GetAllUserSessionsResponseB\aZ\x05/authb\x06proto3"
+	"\x12GetAllUserSessions\x12\x1f.auth.GetAllUserSessionsRequest\x1a .auth.GetAllUserSessionsResponse\x12?\n" +
+	"\n" +
+	"OauthLogin\x12\x17.auth.OauthLoginRequest\x1a\x18.auth.OauthLoginResponse\x12H\n" +
+	"\rOauthCallback\x12\x1a.auth.OauthCallbackRequest\x1a\x1b.auth.OauthCallbackResponseB\aZ\x05/authb\x06proto3"
 
 var (
 	file_proto_auth_auth_proto_rawDescOnce sync.Once
@@ -678,42 +921,54 @@ func file_proto_auth_auth_proto_rawDescGZIP() []byte {
 	return file_proto_auth_auth_proto_rawDescData
 }
 
-var file_proto_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_proto_auth_auth_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_proto_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_proto_auth_auth_proto_goTypes = []any{
-	(*RegisterRequest)(nil),            // 0: auth.RegisterRequest
-	(*RegisterResponse)(nil),           // 1: auth.RegisterResponse
-	(*LoginRequest)(nil),               // 2: auth.LoginRequest
-	(*LoginResponse)(nil),              // 3: auth.LoginResponse
-	(*VerifyRequest)(nil),              // 4: auth.VerifyRequest
-	(*VerifyResponse)(nil),             // 5: auth.VerifyResponse
-	(*VerifyEmailRequest)(nil),         // 6: auth.VerifyEmailRequest
-	(*SessionType)(nil),                // 7: auth.SessionType
-	(*GetCurrentSessionRequest)(nil),   // 8: auth.GetCurrentSessionRequest
-	(*GetCurrentSessionResponse)(nil),  // 9: auth.GetCurrentSessionResponse
-	(*GetAllUserSessionsRequest)(nil),  // 10: auth.GetAllUserSessionsRequest
-	(*GetAllUserSessionsResponse)(nil), // 11: auth.GetAllUserSessionsResponse
-	(*emptypb.Empty)(nil),              // 12: google.protobuf.Empty
+	(OauthProviders)(0),                // 0: auth.OauthProviders
+	(*RegisterRequest)(nil),            // 1: auth.RegisterRequest
+	(*RegisterResponse)(nil),           // 2: auth.RegisterResponse
+	(*LoginRequest)(nil),               // 3: auth.LoginRequest
+	(*LoginResponse)(nil),              // 4: auth.LoginResponse
+	(*VerifyRequest)(nil),              // 5: auth.VerifyRequest
+	(*VerifyResponse)(nil),             // 6: auth.VerifyResponse
+	(*VerifyEmailRequest)(nil),         // 7: auth.VerifyEmailRequest
+	(*SessionType)(nil),                // 8: auth.SessionType
+	(*GetCurrentSessionRequest)(nil),   // 9: auth.GetCurrentSessionRequest
+	(*GetCurrentSessionResponse)(nil),  // 10: auth.GetCurrentSessionResponse
+	(*GetAllUserSessionsRequest)(nil),  // 11: auth.GetAllUserSessionsRequest
+	(*GetAllUserSessionsResponse)(nil), // 12: auth.GetAllUserSessionsResponse
+	(*OauthLoginRequest)(nil),          // 13: auth.OauthLoginRequest
+	(*OauthLoginResponse)(nil),         // 14: auth.OauthLoginResponse
+	(*OauthCallbackRequest)(nil),       // 15: auth.OauthCallbackRequest
+	(*OauthCallbackResponse)(nil),      // 16: auth.OauthCallbackResponse
+	(*emptypb.Empty)(nil),              // 17: google.protobuf.Empty
 }
 var file_proto_auth_auth_proto_depIdxs = []int32{
-	7,  // 0: auth.GetCurrentSessionResponse.session:type_name -> auth.SessionType
-	7,  // 1: auth.GetAllUserSessionsResponse.sessions:type_name -> auth.SessionType
-	0,  // 2: auth.Auth.Register:input_type -> auth.RegisterRequest
-	2,  // 3: auth.Auth.Login:input_type -> auth.LoginRequest
-	4,  // 4: auth.Auth.Verify:input_type -> auth.VerifyRequest
-	6,  // 5: auth.Auth.VerifyEmail:input_type -> auth.VerifyEmailRequest
-	8,  // 6: auth.Auth.GetCurrentSession:input_type -> auth.GetCurrentSessionRequest
-	10, // 7: auth.Auth.GetAllUserSessions:input_type -> auth.GetAllUserSessionsRequest
-	1,  // 8: auth.Auth.Register:output_type -> auth.RegisterResponse
-	3,  // 9: auth.Auth.Login:output_type -> auth.LoginResponse
-	5,  // 10: auth.Auth.Verify:output_type -> auth.VerifyResponse
-	12, // 11: auth.Auth.VerifyEmail:output_type -> google.protobuf.Empty
-	9,  // 12: auth.Auth.GetCurrentSession:output_type -> auth.GetCurrentSessionResponse
-	11, // 13: auth.Auth.GetAllUserSessions:output_type -> auth.GetAllUserSessionsResponse
-	8,  // [8:14] is the sub-list for method output_type
-	2,  // [2:8] is the sub-list for method input_type
-	2,  // [2:2] is the sub-list for extension type_name
-	2,  // [2:2] is the sub-list for extension extendee
-	0,  // [0:2] is the sub-list for field type_name
+	8,  // 0: auth.GetCurrentSessionResponse.session:type_name -> auth.SessionType
+	8,  // 1: auth.GetAllUserSessionsResponse.sessions:type_name -> auth.SessionType
+	0,  // 2: auth.OauthLoginRequest.provider:type_name -> auth.OauthProviders
+	0,  // 3: auth.OauthCallbackRequest.provider:type_name -> auth.OauthProviders
+	1,  // 4: auth.Auth.Register:input_type -> auth.RegisterRequest
+	3,  // 5: auth.Auth.Login:input_type -> auth.LoginRequest
+	5,  // 6: auth.Auth.Verify:input_type -> auth.VerifyRequest
+	7,  // 7: auth.Auth.VerifyEmail:input_type -> auth.VerifyEmailRequest
+	9,  // 8: auth.Auth.GetCurrentSession:input_type -> auth.GetCurrentSessionRequest
+	11, // 9: auth.Auth.GetAllUserSessions:input_type -> auth.GetAllUserSessionsRequest
+	13, // 10: auth.Auth.OauthLogin:input_type -> auth.OauthLoginRequest
+	15, // 11: auth.Auth.OauthCallback:input_type -> auth.OauthCallbackRequest
+	2,  // 12: auth.Auth.Register:output_type -> auth.RegisterResponse
+	4,  // 13: auth.Auth.Login:output_type -> auth.LoginResponse
+	6,  // 14: auth.Auth.Verify:output_type -> auth.VerifyResponse
+	17, // 15: auth.Auth.VerifyEmail:output_type -> google.protobuf.Empty
+	10, // 16: auth.Auth.GetCurrentSession:output_type -> auth.GetCurrentSessionResponse
+	12, // 17: auth.Auth.GetAllUserSessions:output_type -> auth.GetAllUserSessionsResponse
+	14, // 18: auth.Auth.OauthLogin:output_type -> auth.OauthLoginResponse
+	16, // 19: auth.Auth.OauthCallback:output_type -> auth.OauthCallbackResponse
+	12, // [12:20] is the sub-list for method output_type
+	4,  // [4:12] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_proto_auth_auth_proto_init() }
@@ -727,13 +982,14 @@ func file_proto_auth_auth_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_auth_auth_proto_rawDesc), len(file_proto_auth_auth_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   12,
+			NumEnums:      1,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_proto_auth_auth_proto_goTypes,
 		DependencyIndexes: file_proto_auth_auth_proto_depIdxs,
+		EnumInfos:         file_proto_auth_auth_proto_enumTypes,
 		MessageInfos:      file_proto_auth_auth_proto_msgTypes,
 	}.Build()
 	File_proto_auth_auth_proto = out.File

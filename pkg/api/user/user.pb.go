@@ -32,6 +32,7 @@ type UserType struct {
 	Skills          []string               `protobuf:"bytes,6,rep,name=skills,proto3" json:"skills,omitempty"`
 	AvatarUrl       string                 `protobuf:"bytes,7,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
 	IsEmailVerified bool                   `protobuf:"varint,8,opt,name=is_email_verified,json=isEmailVerified,proto3" json:"is_email_verified,omitempty"`
+	IsTotpEnable    bool                   `protobuf:"varint,9,opt,name=is_totp_enable,json=isTotpEnable,proto3" json:"is_totp_enable,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -118,6 +119,13 @@ func (x *UserType) GetAvatarUrl() string {
 func (x *UserType) GetIsEmailVerified() bool {
 	if x != nil {
 		return x.IsEmailVerified
+	}
+	return false
+}
+
+func (x *UserType) GetIsTotpEnable() bool {
+	if x != nil {
+		return x.IsTotpEnable
 	}
 	return false
 }
@@ -806,7 +814,7 @@ var File_proto_user_user_proto protoreflect.FileDescriptor
 
 const file_proto_user_user_proto_rawDesc = "" +
 	"\n" +
-	"\x15proto/user/user.proto\x12\x04user\x1a\x1bgoogle/protobuf/empty.proto\"\xe8\x01\n" +
+	"\x15proto/user/user.proto\x12\x04user\x1a\x1bgoogle/protobuf/empty.proto\"\x8e\x02\n" +
 	"\bUserType\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x12\n" +
@@ -816,7 +824,8 @@ const file_proto_user_user_proto_rawDesc = "" +
 	"\x06skills\x18\x06 \x03(\tR\x06skills\x12\x1d\n" +
 	"\n" +
 	"avatar_url\x18\a \x01(\tR\tavatarUrl\x12*\n" +
-	"\x11is_email_verified\x18\b \x01(\bR\x0fisEmailVerifiedB\b\n" +
+	"\x11is_email_verified\x18\b \x01(\bR\x0fisEmailVerified\x12$\n" +
+	"\x0eis_totp_enable\x18\t \x01(\bR\fisTotpEnableB\b\n" +
 	"\x06_about\"\xbe\x01\n" +
 	"\x11CreateUserRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x12\n" +

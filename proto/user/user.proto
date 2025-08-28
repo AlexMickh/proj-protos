@@ -26,6 +26,7 @@ message UserType {
     repeated string skills = 6;
     string avatar_url = 7;
     bool is_email_verified = 8;
+    bool is_totp_enable = 9;
 }
 
 message CreateUserRequest {

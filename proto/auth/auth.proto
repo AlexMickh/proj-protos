@@ -34,6 +34,7 @@ message RegisterResponse {
 message LoginRequest {
     string email = 1;
     string password = 2;
+    optional string totp_pin = 3;
 }
 
 message LoginResponse {
@@ -100,6 +101,6 @@ message EnableTotpRequest {
 }
 
 message EnableTotpResponse {
-    string url = 1;
-    bytes qrcode = 2;
+    string secret = 1;
+    string qrcode_url = 2;
 }

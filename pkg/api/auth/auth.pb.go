@@ -197,6 +197,7 @@ type LoginRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
 	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	TotpPin       *string                `protobuf:"bytes,3,opt,name=totp_pin,json=totpPin,proto3,oneof" json:"totp_pin,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -241,6 +242,13 @@ func (x *LoginRequest) GetEmail() string {
 func (x *LoginRequest) GetPassword() string {
 	if x != nil {
 		return x.Password
+	}
+	return ""
+}
+
+func (x *LoginRequest) GetTotpPin() string {
+	if x != nil && x.TotpPin != nil {
+		return *x.TotpPin
 	}
 	return ""
 }
@@ -887,8 +895,8 @@ func (x *EnableTotpRequest) GetEmail() string {
 
 type EnableTotpResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Url           string                 `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
-	Qrcode        []byte                 `protobuf:"bytes,2,opt,name=qrcode,proto3" json:"qrcode,omitempty"`
+	Secret        string                 `protobuf:"bytes,1,opt,name=secret,proto3" json:"secret,omitempty"`
+	QrcodeUrl     string                 `protobuf:"bytes,2,opt,name=qrcode_url,json=qrcodeUrl,proto3" json:"qrcode_url,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -923,18 +931,18 @@ func (*EnableTotpResponse) Descriptor() ([]byte, []int) {
 	return file_proto_auth_auth_proto_rawDescGZIP(), []int{17}
 }
 
-func (x *EnableTotpResponse) GetUrl() string {
+func (x *EnableTotpResponse) GetSecret() string {
 	if x != nil {
-		return x.Url
+		return x.Secret
 	}
 	return ""
 }
 
-func (x *EnableTotpResponse) GetQrcode() []byte {
+func (x *EnableTotpResponse) GetQrcodeUrl() string {
 	if x != nil {
-		return x.Qrcode
+		return x.QrcodeUrl
 	}
-	return nil
+	return ""
 }
 
 var File_proto_auth_auth_proto protoreflect.FileDescriptor
@@ -952,10 +960,12 @@ const file_proto_auth_auth_proto_rawDesc = "" +
 	"\x06_aboutB\t\n" +
 	"\a_avatar\"\"\n" +
 	"\x10RegisterResponse\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\"@\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"m\n" +
 	"\fLoginRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\".\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x1e\n" +
+	"\btotp_pin\x18\x03 \x01(\tH\x00R\atotpPin\x88\x01\x01B\v\n" +
+	"\t_totp_pin\".\n" +
 	"\rLoginResponse\x12\x1d\n" +
 	"\n" +
 	"session_id\x18\x01 \x01(\tR\tsessionId\".\n" +
@@ -992,10 +1002,11 @@ const file_proto_auth_auth_proto_rawDesc = "" +
 	"\n" +
 	"session_id\x18\x01 \x01(\tR\tsessionId\")\n" +
 	"\x11EnableTotpRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\">\n" +
-	"\x12EnableTotpResponse\x12\x10\n" +
-	"\x03url\x18\x01 \x01(\tR\x03url\x12\x16\n" +
-	"\x06qrcode\x18\x02 \x01(\fR\x06qrcode*\x1c\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"K\n" +
+	"\x12EnableTotpResponse\x12\x16\n" +
+	"\x06secret\x18\x01 \x01(\tR\x06secret\x12\x1d\n" +
+	"\n" +
+	"qrcode_url\x18\x02 \x01(\tR\tqrcodeUrl*\x1c\n" +
 	"\x0eOauthProviders\x12\n" +
 	"\n" +
 	"\x06YANDEX\x10\x002\xe4\x04\n" +
@@ -1084,6 +1095,7 @@ func file_proto_auth_auth_proto_init() {
 		return
 	}
 	file_proto_auth_auth_proto_msgTypes[0].OneofWrappers = []any{}
+	file_proto_auth_auth_proto_msgTypes[2].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

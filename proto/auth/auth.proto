@@ -15,6 +15,7 @@ service Auth {
     rpc GetAllUserSessions(GetAllUserSessionsRequest) returns (GetAllUserSessionsResponse);
     rpc OauthLogin(OauthLoginRequest) returns (OauthLoginResponse);
     rpc OauthCallback(OauthCallbackRequest) returns (OauthCallbackResponse);
+    rpc EnableTotp(EnableTotpRequest) returns (EnableTotpResponse);
 }
 
 message RegisterRequest {
@@ -92,4 +93,13 @@ message OauthCallbackRequest {
 
 message OauthCallbackResponse {
     string session_id = 1;
+}
+
+message EnableTotpRequest {
+    string email = 1;
+}
+
+message EnableTotpResponse {
+    string url = 1;
+    bytes qrcode = 2;
 }

@@ -28,6 +28,7 @@ const (
 	Auth_GetAllUserSessions_FullMethodName = "/auth.Auth/GetAllUserSessions"
 	Auth_OauthLogin_FullMethodName         = "/auth.Auth/OauthLogin"
 	Auth_OauthCallback_FullMethodName      = "/auth.Auth/OauthCallback"
+	Auth_EnableTotp_FullMethodName         = "/auth.Auth/EnableTotp"
 )
 
 // AuthClient is the client API for Auth service.
@@ -42,6 +43,7 @@ type AuthClient interface {
 	GetAllUserSessions(ctx context.Context, in *GetAllUserSessionsRequest, opts ...grpc.CallOption) (*GetAllUserSessionsResponse, error)
 	OauthLogin(ctx context.Context, in *OauthLoginRequest, opts ...grpc.CallOption) (*OauthLoginResponse, error)
 	OauthCallback(ctx context.Context, in *OauthCallbackRequest, opts ...grpc.CallOption) (*OauthCallbackResponse, error)
+	EnableTotp(ctx context.Context, in *EnableTotpRequest, opts ...grpc.CallOption) (*EnableTotpResponse, error)
 }
 
 type authClient struct {
@@ -132,6 +134,16 @@ func (c *authClient) OauthCallback(ctx context.Context, in *OauthCallbackRequest
 	return out, nil
 }
 
+func (c *authClient) EnableTotp(ctx context.Context, in *EnableTotpRequest, opts ...grpc.CallOption) (*EnableTotpResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EnableTotpResponse)
+	err := c.cc.Invoke(ctx, Auth_EnableTotp_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility.
@@ -144,6 +156,7 @@ type AuthServer interface {
 	GetAllUserSessions(context.Context, *GetAllUserSessionsRequest) (*GetAllUserSessionsResponse, error)
 	OauthLogin(context.Context, *OauthLoginRequest) (*OauthLoginResponse, error)
 	OauthCallback(context.Context, *OauthCallbackRequest) (*OauthCallbackResponse, error)
+	EnableTotp(context.Context, *EnableTotpRequest) (*EnableTotpResponse, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -177,6 +190,9 @@ func (UnimplementedAuthServer) OauthLogin(context.Context, *OauthLoginRequest) (
 }
 func (UnimplementedAuthServer) OauthCallback(context.Context, *OauthCallbackRequest) (*OauthCallbackResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OauthCallback not implemented")
+}
+func (UnimplementedAuthServer) EnableTotp(context.Context, *EnableTotpRequest) (*EnableTotpResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EnableTotp not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 func (UnimplementedAuthServer) testEmbeddedByValue()              {}
@@ -343,6 +359,24 @@ func _Auth_OauthCallback_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_EnableTotp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EnableTotpRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).EnableTotp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_EnableTotp_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).EnableTotp(ctx, req.(*EnableTotpRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -381,6 +415,10 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "OauthCallback",
 			Handler:    _Auth_OauthCallback_Handler,
+		},
+		{
+			MethodName: "EnableTotp",
+			Handler:    _Auth_EnableTotp_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

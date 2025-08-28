@@ -13,6 +13,8 @@ service User {
     rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
     rpc GetUsersBySkills(GetUsersBySkillsRequest) returns (GetUsersBySkillsResponse);
     rpc CreateUserWithProvider(CreateUserWithProviderRequest) returns (CreateUserWithProviderResponse);
+    rpc EnableTotp(EnableTotpRequest) returns (google.protobuf.Empty);
+    rpc GetTotpSecret(GetTotpSecretRequest) returns (GetTotpSecretResponse);
 }
 
 message UserType {
@@ -75,4 +77,17 @@ message CreateUserWithProviderRequest {
 
 message CreateUserWithProviderResponse {
     string id = 1;
+}
+
+message EnableTotpRequest {
+    string email = 1;
+    string secret = 2;
+}
+
+message GetTotpSecretRequest {
+    string email = 1;
+}
+
+message GetTotpSecretResponse {
+    string secret = 1;
 }

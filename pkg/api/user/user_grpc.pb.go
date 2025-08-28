@@ -26,6 +26,8 @@ const (
 	User_GetUserById_FullMethodName            = "/user.User/GetUserById"
 	User_GetUsersBySkills_FullMethodName       = "/user.User/GetUsersBySkills"
 	User_CreateUserWithProvider_FullMethodName = "/user.User/CreateUserWithProvider"
+	User_EnableTotp_FullMethodName             = "/user.User/EnableTotp"
+	User_GetTotpSecret_FullMethodName          = "/user.User/GetTotpSecret"
 )
 
 // UserClient is the client API for User service.
@@ -38,6 +40,8 @@ type UserClient interface {
 	GetUserById(ctx context.Context, in *GetUserByIdRequest, opts ...grpc.CallOption) (*GetUserByIdResponse, error)
 	GetUsersBySkills(ctx context.Context, in *GetUsersBySkillsRequest, opts ...grpc.CallOption) (*GetUsersBySkillsResponse, error)
 	CreateUserWithProvider(ctx context.Context, in *CreateUserWithProviderRequest, opts ...grpc.CallOption) (*CreateUserWithProviderResponse, error)
+	EnableTotp(ctx context.Context, in *EnableTotpRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetTotpSecret(ctx context.Context, in *GetTotpSecretRequest, opts ...grpc.CallOption) (*GetTotpSecretResponse, error)
 }
 
 type userClient struct {
@@ -108,6 +112,26 @@ func (c *userClient) CreateUserWithProvider(ctx context.Context, in *CreateUserW
 	return out, nil
 }
 
+func (c *userClient) EnableTotp(ctx context.Context, in *EnableTotpRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, User_EnableTotp_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) GetTotpSecret(ctx context.Context, in *GetTotpSecretRequest, opts ...grpc.CallOption) (*GetTotpSecretResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetTotpSecretResponse)
+	err := c.cc.Invoke(ctx, User_GetTotpSecret_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility.
@@ -118,6 +142,8 @@ type UserServer interface {
 	GetUserById(context.Context, *GetUserByIdRequest) (*GetUserByIdResponse, error)
 	GetUsersBySkills(context.Context, *GetUsersBySkillsRequest) (*GetUsersBySkillsResponse, error)
 	CreateUserWithProvider(context.Context, *CreateUserWithProviderRequest) (*CreateUserWithProviderResponse, error)
+	EnableTotp(context.Context, *EnableTotpRequest) (*emptypb.Empty, error)
+	GetTotpSecret(context.Context, *GetTotpSecretRequest) (*GetTotpSecretResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -145,6 +171,12 @@ func (UnimplementedUserServer) GetUsersBySkills(context.Context, *GetUsersBySkil
 }
 func (UnimplementedUserServer) CreateUserWithProvider(context.Context, *CreateUserWithProviderRequest) (*CreateUserWithProviderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUserWithProvider not implemented")
+}
+func (UnimplementedUserServer) EnableTotp(context.Context, *EnableTotpRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EnableTotp not implemented")
+}
+func (UnimplementedUserServer) GetTotpSecret(context.Context, *GetTotpSecretRequest) (*GetTotpSecretResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTotpSecret not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 func (UnimplementedUserServer) testEmbeddedByValue()              {}
@@ -275,6 +307,42 @@ func _User_CreateUserWithProvider_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_EnableTotp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EnableTotpRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).EnableTotp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_EnableTotp_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).EnableTotp(ctx, req.(*EnableTotpRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_GetTotpSecret_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTotpSecretRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).GetTotpSecret(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_GetTotpSecret_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).GetTotpSecret(ctx, req.(*GetTotpSecretRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -305,6 +373,14 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateUserWithProvider",
 			Handler:    _User_CreateUserWithProvider_Handler,
+		},
+		{
+			MethodName: "EnableTotp",
+			Handler:    _User_EnableTotp_Handler,
+		},
+		{
+			MethodName: "GetTotpSecret",
+			Handler:    _User_GetTotpSecret_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

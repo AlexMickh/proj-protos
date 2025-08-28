@@ -662,6 +662,146 @@ func (x *CreateUserWithProviderResponse) GetId() string {
 	return ""
 }
 
+type EnableTotpRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	Secret        string                 `protobuf:"bytes,2,opt,name=secret,proto3" json:"secret,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *EnableTotpRequest) Reset() {
+	*x = EnableTotpRequest{}
+	mi := &file_proto_user_user_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *EnableTotpRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EnableTotpRequest) ProtoMessage() {}
+
+func (x *EnableTotpRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_user_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EnableTotpRequest.ProtoReflect.Descriptor instead.
+func (*EnableTotpRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_user_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *EnableTotpRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *EnableTotpRequest) GetSecret() string {
+	if x != nil {
+		return x.Secret
+	}
+	return ""
+}
+
+type GetTotpSecretRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTotpSecretRequest) Reset() {
+	*x = GetTotpSecretRequest{}
+	mi := &file_proto_user_user_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTotpSecretRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTotpSecretRequest) ProtoMessage() {}
+
+func (x *GetTotpSecretRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_user_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTotpSecretRequest.ProtoReflect.Descriptor instead.
+func (*GetTotpSecretRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_user_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *GetTotpSecretRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+type GetTotpSecretResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Secret        string                 `protobuf:"bytes,1,opt,name=secret,proto3" json:"secret,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTotpSecretResponse) Reset() {
+	*x = GetTotpSecretResponse{}
+	mi := &file_proto_user_user_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTotpSecretResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTotpSecretResponse) ProtoMessage() {}
+
+func (x *GetTotpSecretResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_user_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTotpSecretResponse.ProtoReflect.Descriptor instead.
+func (*GetTotpSecretResponse) Descriptor() ([]byte, []int) {
+	return file_proto_user_user_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *GetTotpSecretResponse) GetSecret() string {
+	if x != nil {
+		return x.Secret
+	}
+	return ""
+}
+
 var File_proto_user_user_proto protoreflect.FileDescriptor
 
 const file_proto_user_user_proto_rawDesc = "" +
@@ -708,7 +848,14 @@ const file_proto_user_user_proto_rawDesc = "" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x14\n" +
 	"\x05login\x18\x03 \x01(\tR\x05login\"0\n" +
 	"\x1eCreateUserWithProviderResponse\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id2\xd1\x03\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"A\n" +
+	"\x11EnableTotpRequest\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\x12\x16\n" +
+	"\x06secret\x18\x02 \x01(\tR\x06secret\",\n" +
+	"\x14GetTotpSecretRequest\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"/\n" +
+	"\x15GetTotpSecretResponse\x12\x16\n" +
+	"\x06secret\x18\x01 \x01(\tR\x06secret2\xda\x04\n" +
 	"\x04User\x12?\n" +
 	"\n" +
 	"CreateUser\x12\x17.user.CreateUserRequest\x1a\x18.user.CreateUserResponse\x12K\n" +
@@ -716,7 +863,10 @@ const file_proto_user_user_proto_rawDesc = "" +
 	"\vVerifyEmail\x12\x18.user.VerifyEmailRequest\x1a\x16.google.protobuf.Empty\x12B\n" +
 	"\vGetUserById\x12\x18.user.GetUserByIdRequest\x1a\x19.user.GetUserByIdResponse\x12Q\n" +
 	"\x10GetUsersBySkills\x12\x1d.user.GetUsersBySkillsRequest\x1a\x1e.user.GetUsersBySkillsResponse\x12c\n" +
-	"\x16CreateUserWithProvider\x12#.user.CreateUserWithProviderRequest\x1a$.user.CreateUserWithProviderResponseB\aZ\x05/userb\x06proto3"
+	"\x16CreateUserWithProvider\x12#.user.CreateUserWithProviderRequest\x1a$.user.CreateUserWithProviderResponse\x12=\n" +
+	"\n" +
+	"EnableTotp\x12\x17.user.EnableTotpRequest\x1a\x16.google.protobuf.Empty\x12H\n" +
+	"\rGetTotpSecret\x12\x1a.user.GetTotpSecretRequest\x1a\x1b.user.GetTotpSecretResponseB\aZ\x05/userb\x06proto3"
 
 var (
 	file_proto_user_user_proto_rawDescOnce sync.Once
@@ -730,7 +880,7 @@ func file_proto_user_user_proto_rawDescGZIP() []byte {
 	return file_proto_user_user_proto_rawDescData
 }
 
-var file_proto_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_proto_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_proto_user_user_proto_goTypes = []any{
 	(*UserType)(nil),                       // 0: user.UserType
 	(*CreateUserRequest)(nil),              // 1: user.CreateUserRequest
@@ -744,7 +894,10 @@ var file_proto_user_user_proto_goTypes = []any{
 	(*GetUsersBySkillsResponse)(nil),       // 9: user.GetUsersBySkillsResponse
 	(*CreateUserWithProviderRequest)(nil),  // 10: user.CreateUserWithProviderRequest
 	(*CreateUserWithProviderResponse)(nil), // 11: user.CreateUserWithProviderResponse
-	(*emptypb.Empty)(nil),                  // 12: google.protobuf.Empty
+	(*EnableTotpRequest)(nil),              // 12: user.EnableTotpRequest
+	(*GetTotpSecretRequest)(nil),           // 13: user.GetTotpSecretRequest
+	(*GetTotpSecretResponse)(nil),          // 14: user.GetTotpSecretResponse
+	(*emptypb.Empty)(nil),                  // 15: google.protobuf.Empty
 }
 var file_proto_user_user_proto_depIdxs = []int32{
 	0,  // 0: user.GetUserByEmailResponse.user:type_name -> user.UserType
@@ -756,14 +909,18 @@ var file_proto_user_user_proto_depIdxs = []int32{
 	6,  // 6: user.User.GetUserById:input_type -> user.GetUserByIdRequest
 	8,  // 7: user.User.GetUsersBySkills:input_type -> user.GetUsersBySkillsRequest
 	10, // 8: user.User.CreateUserWithProvider:input_type -> user.CreateUserWithProviderRequest
-	2,  // 9: user.User.CreateUser:output_type -> user.CreateUserResponse
-	4,  // 10: user.User.GetUserByEmail:output_type -> user.GetUserByEmailResponse
-	12, // 11: user.User.VerifyEmail:output_type -> google.protobuf.Empty
-	7,  // 12: user.User.GetUserById:output_type -> user.GetUserByIdResponse
-	9,  // 13: user.User.GetUsersBySkills:output_type -> user.GetUsersBySkillsResponse
-	11, // 14: user.User.CreateUserWithProvider:output_type -> user.CreateUserWithProviderResponse
-	9,  // [9:15] is the sub-list for method output_type
-	3,  // [3:9] is the sub-list for method input_type
+	12, // 9: user.User.EnableTotp:input_type -> user.EnableTotpRequest
+	13, // 10: user.User.GetTotpSecret:input_type -> user.GetTotpSecretRequest
+	2,  // 11: user.User.CreateUser:output_type -> user.CreateUserResponse
+	4,  // 12: user.User.GetUserByEmail:output_type -> user.GetUserByEmailResponse
+	15, // 13: user.User.VerifyEmail:output_type -> google.protobuf.Empty
+	7,  // 14: user.User.GetUserById:output_type -> user.GetUserByIdResponse
+	9,  // 15: user.User.GetUsersBySkills:output_type -> user.GetUsersBySkillsResponse
+	11, // 16: user.User.CreateUserWithProvider:output_type -> user.CreateUserWithProviderResponse
+	15, // 17: user.User.EnableTotp:output_type -> google.protobuf.Empty
+	14, // 18: user.User.GetTotpSecret:output_type -> user.GetTotpSecretResponse
+	11, // [11:19] is the sub-list for method output_type
+	3,  // [3:11] is the sub-list for method input_type
 	3,  // [3:3] is the sub-list for extension type_name
 	3,  // [3:3] is the sub-list for extension extendee
 	0,  // [0:3] is the sub-list for field type_name
@@ -782,7 +939,7 @@ func file_proto_user_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_user_user_proto_rawDesc), len(file_proto_user_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

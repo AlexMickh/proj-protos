@@ -851,7 +851,7 @@ func (x *OauthCallbackResponse) GetSessionId() string {
 
 type EnableTotpRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1002,7 +1002,7 @@ const file_proto_auth_auth_proto_rawDesc = "" +
 	"\n" +
 	"session_id\x18\x01 \x01(\tR\tsessionId\")\n" +
 	"\x11EnableTotpRequest\x12\x14\n" +
-	"\x05email\x18\x02 \x01(\tR\x05email\"K\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"K\n" +
 	"\x12EnableTotpResponse\x12\x16\n" +
 	"\x06secret\x18\x01 \x01(\tR\x06secret\x12\x1d\n" +
 	"\n" +

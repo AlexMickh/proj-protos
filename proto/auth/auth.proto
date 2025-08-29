@@ -97,7 +97,7 @@ message OauthCallbackResponse {
 }
 
 message EnableTotpRequest {
-    string email = 2;
+    string email = 1;
 }
 
 message EnableTotpResponse {

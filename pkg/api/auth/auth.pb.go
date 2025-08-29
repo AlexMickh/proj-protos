@@ -896,7 +896,7 @@ func (x *EnableTotpRequest) GetEmail() string {
 type EnableTotpResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Secret        string                 `protobuf:"bytes,1,opt,name=secret,proto3" json:"secret,omitempty"`
-	QrcodeUrl     string                 `protobuf:"bytes,2,opt,name=qrcode_url,json=qrcodeUrl,proto3" json:"qrcode_url,omitempty"`
+	Qrcode        []byte                 `protobuf:"bytes,2,opt,name=qrcode,proto3" json:"qrcode,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -938,11 +938,11 @@ func (x *EnableTotpResponse) GetSecret() string {
 	return ""
 }
 
-func (x *EnableTotpResponse) GetQrcodeUrl() string {
+func (x *EnableTotpResponse) GetQrcode() []byte {
 	if x != nil {
-		return x.QrcodeUrl
+		return x.Qrcode
 	}
-	return ""
+	return nil
 }
 
 var File_proto_auth_auth_proto protoreflect.FileDescriptor
@@ -1002,11 +1002,10 @@ const file_proto_auth_auth_proto_rawDesc = "" +
 	"\n" +
 	"session_id\x18\x01 \x01(\tR\tsessionId\")\n" +
 	"\x11EnableTotpRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\"K\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"D\n" +
 	"\x12EnableTotpResponse\x12\x16\n" +
-	"\x06secret\x18\x01 \x01(\tR\x06secret\x12\x1d\n" +
-	"\n" +
-	"qrcode_url\x18\x02 \x01(\tR\tqrcodeUrl*\x1c\n" +
+	"\x06secret\x18\x01 \x01(\tR\x06secret\x12\x16\n" +
+	"\x06qrcode\x18\x02 \x01(\fR\x06qrcode*\x1c\n" +
 	"\x0eOauthProviders\x12\n" +
 	"\n" +
 	"\x06YANDEX\x10\x002\xe4\x04\n" +

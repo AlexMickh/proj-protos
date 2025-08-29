@@ -102,5 +102,5 @@ message EnableTotpRequest {
 
 message EnableTotpResponse {
     string secret = 1;
-    string qrcode_url = 2;
+    bytes qrcode = 2;
 }
